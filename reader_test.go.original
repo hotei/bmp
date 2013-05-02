@@ -12,7 +12,7 @@ import (
 	_ "image/png"
 )
 
-const testdataDir = "../testdata/"
+const testdataDir = "/testdata/"
 
 func compare(t *testing.T, img0, img1 image.Image) {
 	b := img1.Bounds()

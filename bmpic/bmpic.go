@@ -9,7 +9,7 @@ import (
 	"github.com/BurntSushi/xgbutil"
 	"github.com/BurntSushi/xgbutil/xevent"
 	"github.com/BurntSushi/xgbutil/xgraphics"
-	// go version 1.0.3 std lib only below
+	// go version 1.X std lib only below
 	// _ "code.google.com/p/go.image/bmp"
 	"bufio"
 	"errors"
@@ -30,10 +30,8 @@ const (
 
 var (
 	testImages = []string{
-		"notBMP.bmp",                // skipped by show-all, fails as req otherwise
+		"notBMP.bmp",                // fails as req
 		"256colorOS2v1.bmp",         // recognized as OS2v1 format, not decoded
-		"celtic.bmp",                // working
-		"scene1.bmp",                // working
 		"bit1bw-rnr.bmp",            // 1 bit per pixel, uncompressed, 2 entry color table - working with my code
 		"bit1color2.bmp",            // working with my code
 		"bit4-test.bmp",             // working with my code
@@ -41,15 +39,14 @@ var (
 		"bit8-gray-rnr.bmp",         // working with my code
 		"bit8comp-test.bmp",         // RLE8 working with my code
 		"bit8comp-rnr.bmp",          // RLE8
-		"bit8-irish.bmp",            // 8 bit per pixel, uncompressed, 6 entry color table - working with my code, failed with original pkg
 		"bit8-test.bmp",             // working with my code - original failed
 		"bit24-test.bmp",            // airmoz
 		"bit24uncomp-marbles.bmp",   // working large 24 bit uncompressed
 		"bit24uncomp-rnr.bmp",       // 24 bit per pixel, uncompressed, working with original
-		"bit24uncomp-teststrip.bmp", // working 24 bit uncompressed
+		"bit24-teststrip.bmp", // working 24 bit uncompressed
 		"whirlpool.jpg",             // fails as required with bad magic if called with bmp.Decode()
-		//		"bit16-test.bmp",
-		//		"bit32-test.bmp",
+		//		"bit16-test.bmp", not implemented yet
+		//		"bit32-test.bmp", not implemented yet
 	}
 	g_picNumFlag    int
 	g_fnameFlag     string
@@ -59,7 +56,7 @@ var (
 )
 
 func init() {
-	flag.IntVar(&g_picNumFlag, "pic", -1, "which pic to show")
+	flag.IntVar(&g_picNumFlag, "pic", -1, "which pic to show or 0 to show all")
 	flag.StringVar(&g_fnameFlag, "f", "", "which file")
 	g_depthMap = make(map[int]int, 10)
 	g_typeMap = make(map[int]int, 10)

@@ -6,31 +6,30 @@ import (
 	"fmt"
 	"image"
 	_ "image/jpeg"
-	//"log"
 	"os"
 	"testing"
 )
 
-const testDir = "../testdata/"
+const testDir = "./testdata/"
 
 var (
 	testImages = []string{
-		"bit24-test.bmp",
-		"bit1bw-rnr.bmp",            // 1 bit per pixel, uncompressed, 2 entry color table - working with my code
-		"bit1color2.bmp",            // working with my code
-		"bit4-test.bmp",             // working with my code
-		"bit4comp-test.bmp",         // work in progress
-		"bit8-gray-rnr.bmp",         // working with my code
-		"bit8comp-test.bmp",         // RLE8 working with my code
-		"bit8comp-rnr.bmp",          // RLE8
-		"bit8-irish.bmp",            // 8 bit per pixel, uncompressed, 6 entry color table - working with my code, failed with original pkg
-		"bit8-test.bmp",             // working with my code - original failed
-		"bit24uncomp-marbles.bmp",   // working large 24 bit uncompressed
-		"bit24uncomp-rnr.bmp",       // 24 bit per pixel, uncompressed, working with original
-		"bit24uncomp-teststrip.bmp", // working 24 bit uncompressed
-		"whirlpool.jpg",             // fails as required with bad magic if called with bmp.Decode()
-		"bit16-test.bmp",
-		"bit32-test.bmp",
+		"bit1bw-rnr.bmp",          // 1 bit per pixel, uncompressed, 2 entry color table - working with my code
+		"bit1color2.bmp",          // working with my code
+		"bit4-test.bmp",           // working with my code
+		"bit4comp-test.bmp",       // RLE4 working with my code
+		"bit8-gray-rnr.bmp",       // working with my code
+		"bit8comp-test.bmp",       // RLE8 working with my code
+		"bit8comp-rnr.bmp",        // RLE8 working with my code
+		"bit8-test.bmp",           // working with my code - original failed to read header correctly
+		"bit24uncomp-marbles.bmp", // working large 24 bit uncompressed
+		"bit24uncomp-rnr.bmp",     // 24 bit per pixel, uncompressed, working with original
+		"bit24-teststrip.bmp",     // working 24 bit uncompressed
+		"whirlpool.jpg",           // fails as required with bad magic if called with bmp.Decode(), ok with image.Decode()
+		"notBMP.bmp",              // fails as required
+		//"bit24-test.bmp",	// air-moz
+		//"bit16-test.bmp",
+		//"bit32-test.bmp",
 	}
 )
 
