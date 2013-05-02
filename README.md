@@ -1,19 +1,30 @@
 <center>
-bmpic
-=====
+bmp package
+===========
 </center>
 
 LICENSE
 -------
 
-The bmp package is (c) 2013 David Rook, released under a BSD style license found in MDR_license.md
+This implementation of the bmp package is (c) 2013 David Rook, released under a BSD style license found in MDR_license.md
+
+bmp_test.go and bmpic.go are (c) 2013 David Rook also with MDR_license.md
+
+Test bmp files are believed to be public domain.  If not please advise and I will replace them with a
+link to the source.
 
 Portions were derived or copied from work originally by the Go language project, released under
 a license found in GoAuthors_license.md.  Specifically, the API was designed by the go authors,
-and the entirety of the bmpRGBA.go file was written by the go authors. 
+and the entirety of the bmpRGBA.go, and reader_test.go files were written by the go authors.  A small portion of
+bmpRLE8.go is excerpted from the original decodePaletted8().
+
+
 
 NOTES
 -----
+
+Email: <hotei1352@gmail.com>
+
 My goal was to expand the support for BMP.  The original source code was the package at
 code.google.com/p/go.image/bmp Unfortunately it only worked on uncompressed 24 bit files and
 some but not all uncompressed 8 bit files.  First I fixed the problems with the 8-bit colormaps.
@@ -47,7 +58,7 @@ from Decode().
 I chose to use another slightly memory-expensive method by unwinding the RLE data into a buffer which then has an 
 io.Reader attached before passing it to the decoder.  It is possible to create the image as the RLE data is 
 unwound but doing it the way I did allowed me to compare the unwound RLE data to the uncompressed version as a
-way to validate the process.  It was simpler and helped at the time.    
+way to validate the process.  It was simpler and helped at the time.
 
 After scratching my head about how to do the DecodeConfig() I realized that this part of the API may indeed be
 broken as Volker Dobler suggested.  The return values from DecodeConfig() don't have the info required
@@ -66,7 +77,7 @@ for some files it didn't show them which was one of the main reasons I was doing
 The new testing _bmp_test.go_ checks to see that the image is readable without errors.  This test is available
 regardless of OS. The intent was to feed it all the bmps I could find and see which would cause it to choke.  On my
 system the new bmp package no longer chokes on implemented formats, but since I'm not on windows I only found about
-9,000 of them.  The 
+9,000 of them.
 
 Bit DEPTH
 
@@ -83,7 +94,7 @@ Bit DEPTH
 To really know if the decoder worked on an unknown file requires visual inspection. _bmpic.go_ displays them but
 as noted it assumes an X-11 environment.  (MS windows equivalent would be what?)
 
-It bothered me a little that the original didn't have a seekable input source.  
+It bothered me a little that the original didn't have a seekable input source.
 The original code assumed that the info-header would always be that of a version 3 bmp(40 bytes).  If
 the file actually contains a different size header then the read will fail.  The
 switch to a ReadSeeker was done by using ioutil.ReadAll() to read the whole file at once. Then we can just slice the
@@ -107,7 +118,7 @@ TODO
 
 1. LO-pri
 	1. add 16 bit format
-	1. add 2 bit format (? )
+	1. add 2 bit format (?)
 	1. cruft removal
 
 BMP formats
@@ -161,10 +172,8 @@ Resources
 
 
 Since this was a nearly "clean-room" development I didn't look at other code.  That probably made debugging more painful than 
-necessary but the whole thing took only a weekend.  
+necessary but the whole thing took only a weekend.
 
-Blind Footer
-------------
 
 [1]: http://samples.fileformat.info/format/bmp/sample/index.htm	"fileformat.info"
 [2]: http://www.fileformat.info/format/bmp/egff.htm "good bmp spec sheet"
@@ -174,5 +183,5 @@ Blind Footer
 [6]: http://go.pkgdoc.org/github.com/hotei/bmp
 [7]: http://www.digicamsoft.com/bmp/bmp.html "a bmp spec"
 [8]: http://en.wikipedia.org/wiki/BMP_file_format "wiki bmp spec"
-<end> README.md Last Update 2013-05-1
+<end> README.md Last Update 2013-05-2
 
