@@ -30,21 +30,21 @@ const (
 
 var (
 	testImages = []string{
-		"notBMP.bmp",                // fails as req
-		"256colorOS2v1.bmp",         // recognized as OS2v1 format, not decoded
-		"bit1bw-rnr.bmp",            // 1 bit per pixel, uncompressed, 2 entry color table - working with my code
-		"bit1color2.bmp",            // working with my code
-		"bit4-test.bmp",             // working with my code
-		"bit4comp-test.bmp",         // work in progress
-		"bit8-gray-rnr.bmp",         // working with my code
-		"bit8comp-test.bmp",         // RLE8 working with my code
-		"bit8comp-rnr.bmp",          // RLE8
-		"bit8-test.bmp",             // working with my code - original failed
-		"bit24-test.bmp",            // airmoz
-		"bit24uncomp-marbles.bmp",   // working large 24 bit uncompressed
-		"bit24uncomp-rnr.bmp",       // 24 bit per pixel, uncompressed, working with original
-		"bit24-teststrip.bmp", // working 24 bit uncompressed
-		"whirlpool.jpg",             // fails as required with bad magic if called with bmp.Decode()
+		"notBMP.bmp",              // fails as req
+		"256colorOS2v1.bmp",       // recognized as OS2v1 format, not decoded
+		"bit1bw-rnr.bmp",          // 1 bit per pixel, uncompressed, 2 entry color table - working with my code
+		"bit1color2.bmp",          // working with my code
+		"bit4-test.bmp",           // working with my code
+		"bit4comp-test.bmp",       // work in progress
+		"bit8-gray-rnr.bmp",       // working with my code
+		"bit8comp-test.bmp",       // RLE8 working with my code
+		"bit8comp-rnr.bmp",        // RLE8
+		"bit8-test.bmp",           // working with my code - original failed
+		"bit24-test.bmp",          // airmoz
+		"bit24uncomp-marbles.bmp", // working large 24 bit uncompressed
+		"bit24uncomp-rnr.bmp",     // 24 bit per pixel, uncompressed, working with original
+		"bit24-teststrip.bmp",     // working 24 bit uncompressed
+		"whirlpool.jpg",           // fails as required with bad magic if called with bmp.Decode()
 		//		"bit16-test.bmp", not implemented yet
 		//		"bit32-test.bmp", not implemented yet
 	}
