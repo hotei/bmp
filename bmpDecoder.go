@@ -1,6 +1,32 @@
 // bmpreader.go (c) 2013 David Rook
 // started 2013-04-26 working well same day
 
+// Read bmp file, decode and return image.Image
+//
+//  Features 
+//  ========
+//    Handles 1 bit (Black and White) or BiColor
+//    Handles 4 bit compressed (RLE-4) or uncompressed
+//       with full or partial (<16 entry) colorMaps
+//    Handles 8 bit compressed (RLE-8) or uncompressed
+//       with full or partial (<256 entry) colorMaps
+//    Handles 24 bit color uncompressed 
+//    These features covered over 99% of the files on my system YMMV
+//
+// Real BUGS  -##0{   None Known - but beware of limitations    
+//
+//  Limitations
+//  -----------
+//    Doesn't handle delta compression
+//    Doesn't handle 2 bit files (Windows CE only)
+//    Doesn't handle 16 bit files
+//    Doesn't handle 32 bit files
+//    Doesn't handle OS2 v1 or OS2 v2 format bmps
+//    Doesn't handle V4 or V5 format files
+//
+// (c) 2013 David Rook - License is BSD style - see LICENSE.md
+//  Also see README.md for more info
+//
 package bmp
 
 import (

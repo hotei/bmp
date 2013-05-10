@@ -78,7 +78,7 @@ func unwindRLE4(r io.Reader, b *BMP_T) ([]byte, error) {
 				switch pixVal {
 				case 0: // end of line must be on DWORD boundary counting from BOF, not BOpixmap
 					for {
-						if (len(pixMap) % 4) == 0 { // BUG(mdr) dword (ie %4) or %2? or ?
+						if (len(pixMap) % 4) == 0 {
 							break
 						}
 						//verbose.Printf("Padding line with 0\n")
@@ -94,7 +94,7 @@ func unwindRLE4(r io.Reader, b *BMP_T) ([]byte, error) {
 					verbose.Printf("len(pixMap)=%d  cap(pixMap)=%d   bytesRead(%d) lineCt(%d)\n", len(pixMap), cap(pixMap), bytesRead, lineCt)
 					goto xit
 				case 2: // Delta
-					// BUG(mdr): delta encoding not handled in unwindRLE4
+					// BUG(mdr): TODO - delta encoding not handled in unwindRLE4
 					log.Printf("Delta value found but no handler available for it\n")
 					return nil, ErrNoDelta
 					deltax, err := br.ReadByte()
@@ -151,7 +151,7 @@ xit:
 		verbose.Printf("!Err-> mismatched len(source) & bytesRead is bad\n")
 		verbose.Printf("bytesRead is %d but should be %d\n", bytesRead, len(b.aBitMapBits))
 	}
-	// BUG(mdr): ? do we need this - fill out pixmap if end of source data before map is full
+	// BUG(mdr): OVERKILL? - we fill out pixmap if end of source data before map is full
 	for {
 		if len(pixMap) >= cap(pixMap) {
 			break

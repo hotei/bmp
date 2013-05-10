@@ -90,7 +90,7 @@ func unwindRLE8(r io.Reader, b *BMP_T) ([]byte, error) {
 					err = err
 					bytesRead += 2
 					// need some magic here to advance over part of image (why would it be used?)
-					// BUG(mdr): delta encoding not handled in unwindRLE8
+					// BUG(mdr): TODO - delta encoding not handled in unwindRLE8
 				}
 				log.Printf("can't happen\n")
 				return nil, ErrCantHappen
@@ -130,7 +130,7 @@ xit:
 		verbose.Printf("!Err-> mismatched len(source) & bytesRead is bad\n")
 		verbose.Printf("bytesRead is %d but should be %d\n", bytesRead, len(b.aBitMapBits))
 	}
-	// BUG(mdr): ? do we need this - fill out pixmap if end of source data before map is full
+	// BUG(mdr): OVERKILL? - we fill out pixmap if end of source data before map is full
 	for {
 		if len(pixMap) >= cap(pixMap) {
 			break
