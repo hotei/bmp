@@ -1,5 +1,5 @@
 // bmp_test.go (c) 2013 David Rook
-
+// need to re-write so failure of notBMP.bmp doesn't cause test to fail
 package bmp
 
 import (
@@ -13,7 +13,7 @@ import (
 const testDir = "./testdata/"
 
 var (
-	testImages = []string{
+	okImages = []string{
 		"bit1bw-rnr.bmp",          // 1 bit per pixel, uncompressed, 2 entry color table - working with my code
 		"bit1color2.bmp",          // working with my code
 		"bit4-test.bmp",           // working with my code
@@ -26,10 +26,12 @@ var (
 		"bit24uncomp-rnr.bmp",     // 24 bit per pixel, uncompressed, working with original
 		"bit24-teststrip.bmp",     // working 24 bit uncompressed
 		"whirlpool.jpg",           // fails as required with bad magic if called with bmp.Decode(), ok with image.Decode()
-		"notBMP.bmp",              // fails as required
 		//"bit24-test.bmp",	// air-moz
 		//"bit16-test.bmp",
 		//"bit32-test.bmp",
+	}
+	failImages = []string{
+		"notBMP.bmp",              //
 	}
 )
 

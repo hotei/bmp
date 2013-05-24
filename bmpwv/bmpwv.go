@@ -10,6 +10,7 @@ import (
 	//"bufio"
 	"bytes"
 	"fmt"
+	"image"
 	"image/png"
 	//"io"
 	"io/ioutil"
@@ -26,6 +27,7 @@ const (
 	portNum    = 8282
 	bmpURL = "/bmp/"
 	mdURL  = "/md/"
+	imageURL = "/image/"
 	serverRoot = "/www/"
 )
 
@@ -37,6 +39,7 @@ var (
 
 var myBmpDir = []byte{}
 var myMdDir = []byte{}
+var myImageDir = []byte{}
 
 func checkBmpName(pathname string, info os.FileInfo, err error) error {
 	//fmt.Printf("checking %s\n", pathname)
@@ -182,6 +185,39 @@ func htmlFromMd(fname string) []byte {
 	return output
 }
 
+// testing now
+func imageHandler(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path == imageURL {
+		w.Write(myImageDir)
+		return
+	}
+	workDir := serverRoot + imageURL[1:]
+	fmt.Printf("workDir(%s)\n",workDir)
+	fmt.Printf("r.URL.Path(%s)\n",r.URL.Path)
+	imageName := workDir+r.URL.Path[len(imageURL):]
+	fmt.Printf("imageHandler: imageName = %s\n", imageName)
+	bf, err := os.Open(imageName)
+	if err != nil {
+		fmt.Printf("imageHandler: cant open image %s\n", imageName)
+		return
+	}
+	img, s, err := image.Decode(bf)
+	if err != nil {
+		fmt.Printf("imageHandler: image decode failed for %s with type: %s\n", imageName,s)
+		w.Write([]byte(fmt.Sprintf("image Decode failed for %s with type: %s\n",imageName,s)))
+		return	
+	}
+	b := make([]byte, 0, 1000*1000)  // b will expand as needed
+	wo := bytes.NewBuffer(b)
+	err = png.Encode(wo, img)
+	if err != nil {
+		fmt.Printf("imageHandler: png encode failed for %s\n", imageName)
+		return	
+	}
+	w.Write(wo.Bytes())
+}
+
+
 // working and pretty
 func bmpHandler(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path == bmpURL {
@@ -221,9 +257,11 @@ func main() {
 	//	http.HandleFunc(virtualURL, html)
 	http.HandleFunc(mdURL, mdHandler)
 	http.HandleFunc(bmpURL, bmpHandler)
+	http.HandleFunc(imageURL, imageHandler)
+	
 	// Handle(serverRoot, is like a dir missing an index "ftp-style"
 	http.Handle(serverRoot, http.StripPrefix(serverRoot, http.FileServer(http.Dir(serverRoot))))
-	log.Printf("bmpwv is ready to serve at %s\n", listenOn)
+	log.Printf("bmpwv is ready to serve at %s\n", listenOnPort)
 	err := http.ListenAndServe(listenOnPort, nil)
 	if err != nil {
 		log.Printf("bmpwv: error running webserver %v", err)
