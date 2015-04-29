@@ -3,17 +3,17 @@
 
 // Read bmp file, decode and return image.Image
 //
-//  Features 
+//  Features
 //  ========
 //    Handles 1 bit (Black and White) or BiColor
 //    Handles 4 bit compressed (RLE-4) or uncompressed
 //       with full or partial (<16 entry) colorMaps
 //    Handles 8 bit compressed (RLE-8) or uncompressed
 //       with full or partial (<256 entry) colorMaps
-//    Handles 24 bit color uncompressed 
+//    Handles 24 bit color uncompressed
 //    These features covered over 99% of the files on my system YMMV
 //
-// Real BUGS  -##0{   None Known - but beware of limitations    
+// Real BUGS  -##0{   None Known - but beware of limitations
 //
 //  Limitations
 //  -----------

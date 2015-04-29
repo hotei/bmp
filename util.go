@@ -62,7 +62,7 @@ func Int64FromLSBytes(b []byte) int64 {
 	if len(b) != 8 {
 		log.Panicf("bmp: Slice must be exactly 8 bytes\n")
 	}
-	// unsure which is faster but we have to use second version on < 64bit machines anyway 
+	// unsure which is faster but we have to use second version on < 64bit machines anyway
 	// could handle with build flags but too much trouble for now
 	//	return  int32(b[0]) | (int32(b[1]) << 8) | (int32(b[2])<<16) | (int32(b[3]) << 24) |
 	//	(int32(b[4]) <<32) | (int32(b[5]) << 40) | (int32(b[6])<<48) | (int32(b[7]) << 56)

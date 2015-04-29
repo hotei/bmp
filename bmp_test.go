@@ -31,7 +31,7 @@ var (
 		//"bit32-test.bmp",
 	}
 	failImages = []string{
-		"notBMP.bmp",              //
+		"notBMP.bmp", //
 	}
 )
 

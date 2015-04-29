@@ -1,14 +1,12 @@
 // bmpic.go
 
+// feed using find with *.bmp filenames and it will create a summary of
+// what it finds
+//
+// or use with -f filename to show a file using X-windows
 package main
 
 import (
-	// mine
-	"github.com/hotei/bmp"
-	// Alien
-	"github.com/BurntSushi/xgbutil"
-	"github.com/BurntSushi/xgbutil/xevent"
-	"github.com/BurntSushi/xgbutil/xgraphics"
 	// go version 1.X std lib only below
 	// _ "code.google.com/p/go.image/bmp"
 	"bufio"
@@ -22,6 +20,12 @@ import (
 	"os"
 	"strings"
 	"time"
+	// Alien
+	"github.com/BurntSushi/xgbutil"
+	"github.com/BurntSushi/xgbutil/xevent"
+	"github.com/BurntSushi/xgbutil/xgraphics"
+	// mine
+	"github.com/hotei/bmp"
 )
 
 const (
