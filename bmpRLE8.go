@@ -4,8 +4,6 @@ package bmp
 
 import (
 	"bufio"
-	//"bytes"
-	//"fmt"
 	"image"
 	"image/color"
 	"io"
@@ -84,7 +82,7 @@ func unwindRLE8(r io.Reader, b *BMP_T) ([]byte, error) {
 					return nil, ErrNoDelta
 					deltax, err := br.ReadByte()
 					deltay, err := br.ReadByte()
-					// LINT req
+					// LINT req - leave here in case we build out delta code later
 					deltax = deltax
 					deltay = deltay
 					err = err
@@ -130,7 +128,7 @@ xit:
 		verbose.Printf("!Err-> mismatched len(source) & bytesRead is bad\n")
 		verbose.Printf("bytesRead is %d but should be %d\n", bytesRead, len(b.aBitMapBits))
 	}
-	// BUG(mdr): OVERKILL? - we fill out pixmap if end of source data before map is full
+	// BUG(mdr): OVERKILL? - we fill out pixmap with null bytes if end of source data before map is full
 	for {
 		if len(pixMap) >= cap(pixMap) {
 			break

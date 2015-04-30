@@ -57,7 +57,7 @@ func ReadBMP(r io.Reader) (bfp *BMP_T, err error) {
 		fmt.Printf("bmp: can't recognize header size %d\n", bmpInfoHdr.HdrSize)
 		return nil, ErrBadHeader
 	}
-	// since we have goo header we proceed to pick it apart, checking
+	// since we have good header we proceed to pick it apart, checking
 	// for sanity/consistency as we go
 	copy(bmpFileHdr.bfMagic[0:2], bmpBytes[0:2])
 	bmpFileHdr.bfSize = Uint32FromLSBytes(bmpBytes[2:6])
@@ -116,12 +116,12 @@ func ReadBMP(r io.Reader) (bfp *BMP_T, err error) {
 	case 8:
 		// working
 	case 16:
-		fmt.Printf("16 bit per pixel not yet supported\n")
+		fmt.Printf("16 bit per pixel not supported\n")
 		return nil, Err16NotSupported
 	case 24:
 		// working
 	case 32:
-		fmt.Printf("32 bit per pixel not yet supported\n")
+		fmt.Printf("32 bit per pixel not supported\n")
 		return nil, Err32NotSupported
 	default:
 		fmt.Printf("bmp: bad number of bits per pixel, must be 1/2/4/8/16/24/32 but got %d\n", bmpInfoHdr.Depth)
@@ -208,7 +208,7 @@ func ReadBMP(r io.Reader) (bfp *BMP_T, err error) {
 	}
 	verbose.Printf("len(Bits) = %d\n", len(bf.aBitMapBits))
 	// copy our loose header elements into the struct we're returning
-	// copy has to occur after they're fully build out
+	// copy has to occur after they're fully built out
 	bf.fileheader = bmpFileHdr
 	bf.Infoheader = bmpInfoHdr
 

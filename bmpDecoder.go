@@ -113,7 +113,7 @@ typedef struct tagBITMAPINFOHEADER {    // bmih
 
 // DIB device-independent bitmap
 type BITMAPINFOHEADER_T struct {
-	HdrSize         uint32 // bytes used by the InfoHeader struct - NOT always sames as sizeof(BITMAPINFOHEADER_T)
+	HdrSize         uint32 // bytes used by the InfoHeader struct - NOT always same as sizeof(BITMAPINFOHEADER_T)
 	Width           int32  // width of bitmap in pixels
 	Height          int32  // height of bitmap in pixels
 	biPlanes        uint16 // number of planes - must be 1
@@ -154,13 +154,13 @@ func Decode(r io.Reader) (img image.Image, err error) {
 	case 1, 2, 4, 8:
 		c = image.Config{ColorModel: b.aColors, Width: int(b.Infoheader.Width), Height: int(b.Infoheader.Height)}
 	case 16:
-		fmt.Printf("16 bit per pixel not yet supported at this time\n")
+		fmt.Printf("16 bit per pixel not supported\n")
 		return nil, Err16NotSupported
 	case 24:
 		verbose.Printf("24 colormodel=%v\n", color.RGBAModel)
 		c = image.Config{ColorModel: color.RGBAModel, Width: int(b.Infoheader.Width), Height: int(b.Infoheader.Height)}
 	case 32:
-		fmt.Printf("32 bit per pixel not yet supported\n")
+		fmt.Printf("32 bit per pixel not supported\n")
 		return nil, Err32NotSupported
 	default:
 		log.Printf("bmp: can't happen \n")
@@ -206,19 +206,19 @@ func Decode(r io.Reader) (img image.Image, err error) {
 
 func DecodeConfig(r io.Reader) (config image.Config, err error) {
 
-	bf, err := ReadBMP(r) // not efficient but simple wins
+	bf, err := ReadBMP(r) // not efficient but simple wins : read bitmap just to git header info
 
 	switch bf.Infoheader.Depth {
 	case 1, 2, 4, 8:
 		return image.Config{ColorModel: bf.aColors, Width: int(bf.Infoheader.Width), Height: int(bf.Infoheader.Height)}, nil
 	case 16:
-		fmt.Printf("16 bit per pixel not yet supported\n")
+		fmt.Printf("16 bit per pixel not supported\n")
 		return config, Err16NotSupported
 	case 24:
 		verbose.Printf("24 colormodel=%v\n", color.RGBAModel)
 		return image.Config{ColorModel: color.RGBAModel, Width: int(bf.Infoheader.Width), Height: int(bf.Infoheader.Height)}, nil
 	case 32:
-		fmt.Printf("32 bit per pixel not yet supported\n")
+		fmt.Printf("32 bit per pixel not supported\n")
 		return config, Err32NotSupported
 	default:
 		log.Printf("bmp: can't happen DecodeConfig\n") // only 1/4/8/24 allowed by earlier logic

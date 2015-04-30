@@ -8,8 +8,6 @@ import (
 	"os"
 )
 
-// ------------------------------- U T I L I T Y    F U N C s
-
 func inRangeByte(a, b, c byte) bool {
 	if a > c { // swap ends if necessary
 		a, c = c, a
